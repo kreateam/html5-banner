@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="no">
+<!DOCTYPE html>
+<html>
 <head>
   <title></title>
 </head>
@@ -8,7 +8,7 @@
 
 <div class="banner-demo" data-clicktag="_ADCLICK_http://www.aftenposten.no/">
   <div class="banner-button" data-clicktag="_ADCLICK_http://some.where.else.no/">
-    <a href="http://otherwhere.no/" data-clicktag="_ADCLICK_http://otherwhere.no/">Link</a>
+    <a href="" data-clicktag="_ADCLICK_http://otherwhere.no/">Link</a>
   </div>
 </div>
 
@@ -21,17 +21,20 @@
      * Set clicktag links on elements with attribute "data-clicktag"
      * 
      */
-    function setClicktags() {
+    function setClicktags(banner) {
       var
+        banner = (banner && banner.querySelectorAll) ? banner : document,
         tags = document.querySelectorAll('[data-clicktag]');
 
       if (tags && tags.length) {
         for (var i = 0; i < tags.length; i++) {
           if (tags[i].hasAttribute("href")) {
+            console.info("Setting href!");
             tags[i].href    = tags[i].getAttribute("data-clicktag");
             tags[i].target  = "_blank";
           }
           else {
+            console.info("Adding click listener!");
             tags[i].addEventListener("click", onclicked);
           }
         }
@@ -57,8 +60,13 @@
       }
     };
 
+
+    // heigh ho ...
+    setClicktags();
+
   })();
 
 </script>
 
 </body>
+</html>
