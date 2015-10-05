@@ -44,9 +44,10 @@
     /**
      * Set clicktag links on elements with attribute "data-clicktag"
      */
-    function setClicktags() {
+    function setClicktags(banner) {
       var
-        tags    = document.querySelectorAll('[data-clicktag]'),
+        banner  = (banner && banner.querySelectorAll) ? banner : document,
+        tags    = banner.querySelectorAll('[data-clicktag]'),
         dhtml   = window.dhtml || { getVar : function(c, d) { return d || c || "undefined"}};
 
       if (tags && tags.length) {
