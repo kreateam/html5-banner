@@ -1,0 +1,17 @@
+{
+        "version": "1.0",
+
+        "title": "AdForm Template",
+        "description": "Kreateam Template, tagged for AdForm",
+
+        "width" : "980",
+        "height": "500",
+
+        "clicktags": {
+            "clickTAG": "http:\/\/www.aftenposten.no\/",
+            "clickTAG2": "http:\/\/some.where.else.no\/",
+            "clickTAG3" : "http:\/\/otherwhere.no\/"
+        },
+
+        "source": "index.html"
+}

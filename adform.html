@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+
+<div class="banner-demo" data-clicktag="clickTAG">
+  <div class="banner-button" data-clicktag="clickTAG2">
+    <a href="http://otherwhere.no/" data-clicktag="clickTAG3">Link</a>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  ;(function() {
+
+
+    /**
+     * Generic onclick function
+     * 
+     * @param   {Event}  e  The event triggered
+     * 
+     * @return  {void}      Nothing
+     */
+    function onclicked(e) {
+      var
+        clicktag  = this.getAttribute("data-clicktag"),
+        dhtml     = window.dhtml || { getVar : function(c, d) { return d || c || "undefined"}};
+
+      // if we were invoked directly, or not from a click event
+      if (!e || !e.preventDefault) { return }
+
+      if (clicktag) {
+        e.preventDefault();
+        e.stopPropagation();
+        return window.open(dhtml.getVar(clicktag, clicktag), "_blank");
+      }
+    }
+
+
+    /**
+     * Set clicktag links on elements with attribute "data-clicktag"
+     * 
+     * @return  {int}  Number of clicktag links added
+     */
+    function setClicktags() {
+      var
+        tags    = document.querySelectorAll('[data-clicktag]'),
+        dhtml   = window.dhtml || { getVar : function(c, d) { return d || c || "undefined"}};
+
+      if (tags && tags.length) {
+        for (var i = 0; i < tags.length; i++) {
+          if (tags[i].hasAttribute("href")) {
+            // use href, if there
+            tags[i].href    = dhtml.getVar(tags[i].getAttribute("data-clicktag"), "data-clicktag");
+            tags[i].target  = "_blank";
+          }
+          else {
+            // otherwise, add click handler
+            tags[i].addEventListener("click", onclicked);
+          }
+        }
+      }
+    }
+
+
+    // heigh ho ...
+    setClicktags();
+
+  })();
+
+</script>
+
+</body>
+</html>
