@@ -29,12 +29,10 @@
       if (tags && tags.length) {
         for (var i = 0; i < tags.length; i++) {
           if (tags[i].hasAttribute("href")) {
-            console.info("Setting href!");
             tags[i].href    = tags[i].getAttribute("data-clicktag");
             tags[i].target  = "_blank";
           }
           else {
-            console.info("Adding click listener!");
             tags[i].addEventListener("click", onclicked);
           }
         }
