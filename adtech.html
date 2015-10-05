@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <title></title>
+</head>
+<body>
+
+
+<div class="banner-demo" data-clicktag="_ADCLICK_http://www.aftenposten.no/">
+  <div class="banner-button" data-clicktag="_ADCLICK_http://some.where.else.no/">
+    <a href="http://otherwhere.no/" data-clicktag="_ADCLICK_http://otherwhere.no/">Link</a>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  ;(function() {
+
+
+    /**
+     * Set clicktag links on elements with attribute "data-clicktag"
+     * 
+     */
+    function setClicktags() {
+      var
+        tags = document.querySelectorAll('[data-clicktag]');
+
+      if (tags && tags.length) {
+        for (var i = 0; i < tags.length; i++) {
+          if (tags[i].hasAttribute("href")) {
+            tags[i].href    = tags[i].getAttribute("data-clicktag");
+            tags[i].target  = "_blank";
+          }
+          else {
+            tags[i].addEventListener("click", onclicked);
+          }
+        }
+      }
+    };
+
+
+    /**
+     * Generic onclick function
+     * @param   {Event}  e  The event triggered
+     */
+    function onclicked(e) {
+      var
+        clicktag  = typeof this.getAttribute == "function" ? this.getAttribute("data-clicktag") : null;
+
+      // we only want to be invoked by event listeners
+      if (!e || !e.preventDefault) { return }
+
+      if (clicktag) {
+        e.preventDefault();
+        e.stopPropagation();
+        return window.open(clicktag, "_blank");
+      }
+    };
+
+  })();
+
+</script>
+
+</body>
