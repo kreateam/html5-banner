@@ -4,8 +4,8 @@
   <title></title>
   <meta charset="utf-8">
 
-  <!-- AdForm DHTML Tracker -->
-  <script src="http://track.adform.net/banners/scripts/rmb/Adform.DHTML.js"></script>
+  <!-- AdForm mraid.js Tracker -->
+  <script src="mraid.js"></script>
 </head>
 <body>
 
@@ -28,8 +28,7 @@
      */
     function onclicked(e) {
       var
-        clicktag  = this.getAttribute("data-clicktag"),
-        dhtml     = window.dhtml || { getVar : function(c, d) { return d || c || "undefined"}};
+        clicktag  = this.getAttribute("data-clicktag");
 
       // if we were invoked directly, or not from a click event
       if (!e || !e.preventDefault) { return }
@@ -37,7 +36,7 @@
       if (clicktag) {
         e.preventDefault();
         e.stopPropagation();
-        return window.open(dhtml.getVar(clicktag, clicktag), "_blank");
+        mraid.open(Adform.getClickURL(clicktag));
       }
     }
 
@@ -48,14 +47,13 @@
     function setClicktags(banner) {
       var
         banner  = (banner && banner.querySelectorAll) ? banner : document,
-        tags    = banner.querySelectorAll('[data-clicktag]'),
-        dhtml   = window.dhtml || { getVar : function(c, d) { return d || c || "undefined"}};
+        tags    = banner.querySelectorAll('[data-clicktag]');
 
       if (tags && tags.length) {
         for (var i = 0; i < tags.length; i++) {
           if (tags[i].hasAttribute("href")) {
             // use href, if there
-            tags[i].href    = dhtml.getVar(tags[i].getAttribute("data-clicktag"), "data-clicktag");
+            tags[i].href    = Adform.getClickURL(tags[i].getAttribute("data-clicktag"));
             tags[i].target  = "_blank";
           }
           else {
