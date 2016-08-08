@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <script type="text/javascript" src="https://acdn.adnxs.com/html5-lib/1.3.0/appnexus-html5-lib.min.js"></script>
+</head>
+<body>
+  <div class="test-ad">
+    Dette er en test
+    <p><button>clickTAG2</button></p>
+  </div>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      // APPNEXUS.getClickTag();
+
+    });
+  </script>
+<div class="banner-demo" data-clicktag="http://www.aftenposten.no/">
+  <p>Main clicktag is on container div</p>
+  <div class="banner-button" data-clicktag="https://www.kreateam.io/">
+    <p>Clicktag2 is on top, and prevents click-through to background clickTag</p>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  ;(function() {
+    /**
+     * Set clicktag links on elements with attribute "data-clicktag"
+     * 
+     */
+    function initClicktags(banner) {
+      var
+        banner  = (banner && banner.querySelectorAll) ? banner : document,
+        tags    = banner.querySelectorAll('[data-clicktag]');
+      if (tags && tags.length) {
+        for (var i = 0; i < tags.length; i++) {
+          tags[i].addEventListener("click", onclicked);
+        }
+      }
+    };
+
+    /**
+     * Generic onclick function
+     * @param   {Event}  e  The event triggered
+     */
+    function onclicked(e) {
+      var
+        clicktag  = typeof this.getAttribute == "function" ? this.getAttribute("data-clicktag") : null;
+
+      // we only want to be invoked by event listeners
+      if (!e || !e.preventDefault) { return }
+      if (clicktag) {
+        e.preventDefault();
+        e.stopPropagation();
+        return window.open(clicktag, "_blank");
+      }
+    };
+
+    // heigh ho ...
+    initClicktags();
+  })();
+</script>
+
+</body>
+</html>
